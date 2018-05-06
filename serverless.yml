@@ -9,14 +9,14 @@ custom:
       - aws
       - dynamodb
       - Ref: AWS::Region
-      - Ref: AWS::AcountId
+      - Ref: AWS::AccountId
       - table/${self:custom.todosTableName}
 
 provider:
   name: aws
   runtime: go1.x
   stage: dev
-  environmet:
+  environment:
     TODOS_TABLE_NAME: ${self:custom.todosTableName}
   iamRoleStatements:
     - Effect: Allow
@@ -27,7 +27,7 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource:
-        - ${self:custom.todosTableName}
+        - ${self:custom.todosTableArn}
 
 resources:
   Resources:
@@ -35,16 +35,15 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:custom.todosTableName}
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 
 package:
   individually: true
