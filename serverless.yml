@@ -80,6 +80,17 @@ functions:
         - ./bin/handlers/completeTodo
     events:
       - http:
-          path: todo
+          path: todos
           method: patch
+          cors: true
+
+  deleteTodo:
+    handler: bin/handlers/deleteTodo
+    package:
+      include:
+        - ./bin/handlers/deleteTodo
+    events:
+      - http:
+          path: todos
+          method: delete
           cors: true
