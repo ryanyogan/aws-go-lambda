@@ -43,7 +43,7 @@ func AddTodo(ctx context.Context, request events.APIGatewayProxyRequest) (events
 	fmt.Println("AddTodo")
 
 	var (
-		id        = uuid.Must(uuid.NewV4()).String()
+		id        = uuid.Must(uuid.NewV4(), nil).String()
 		tableName = aws.String(os.Getenv("TODOS_TABLE_NAME"))
 	)
 
@@ -66,13 +66,13 @@ func AddTodo(ctx context.Context, request events.APIGatewayProxyRequest) (events
 			Body:       err.Error(),
 			StatusCode: 500,
 		}, nil
-	} else {
-		body, _ := json.Marshal(todo)
-		return events.APIGatewayProxyResponse{
-			Body:       string(body),
-			StatusCode: 200,
-		}, nil
 	}
+
+	body, _ := json.Marshal(todo)
+	return events.APIGatewayProxyResponse{
+		Body:       string(body),
+		StatusCode: 200,
+	}, nil
 }
 
 func main() {
