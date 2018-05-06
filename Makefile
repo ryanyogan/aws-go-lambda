@@ -8,6 +8,7 @@ build:
 	rm -rf bin/
 	env GOOS=linux go build -ldflags="-s -w" -o bin/handlers/addTodo src/handlers/create/addTodo.go
 	env GOOS=linux go build -ldflags="-s -w" -o bin/handlers/listTodos src/handlers/list/listTodos.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/handlers/completeTodo src/handlers/complete/completeTodo.go
 
 release: test build
 	serverless deploy

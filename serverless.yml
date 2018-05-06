@@ -72,3 +72,14 @@ functions:
           path: todos
           method: get
           cors: true
+
+  completeTodo:
+    handler: bin/handlers/completeTodo
+    package:
+      include:
+        - ./bin/handlers/completeTodo
+    events:
+      - http:
+          path: todo
+          method: patch
+          cors: true
